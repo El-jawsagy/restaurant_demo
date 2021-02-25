@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:max_flutter_app_section_seven/models/meal.dart';
-import 'package:max_flutter_app_section_seven/screens/meal_details_screen.dart';
+import '../screens/meal_details_screen.dart';
 
 class MealItem extends StatelessWidget {
   final String id;
@@ -8,6 +8,8 @@ class MealItem extends StatelessWidget {
   final String imageUrl;
   final Complexity complexity;
   final Price price;
+  final List<String> steps;
+  final List<String> components;
   final int duration;
 
   const MealItem({
@@ -17,6 +19,8 @@ class MealItem extends StatelessWidget {
     @required this.imageUrl,
     @required this.complexity,
     @required this.price,
+    @required this.steps,
+    @required this.components,
     @required this.duration,
   }) : super(key: key);
 
@@ -52,12 +56,25 @@ class MealItem extends StatelessWidget {
     }
   }
 
-  void navToDisplayMeal(BuildContext ctx) {
+  void navToDisplayMeal(
+    BuildContext ctx,
+  ) {
     Navigator.pushNamed(
       ctx,
       MealDetailsScreen.namedRoute,
-      arguments: id,
+      arguments: {
+        "id": id,
+        "title": title,
+        "imageUrl": imageUrl,
+        "steps": steps,
+        "components": components
+      },
     );
+    // .then((mealId) {
+    //   if (mealId != null) {
+    //     removeItem(mealId);
+    //   }
+    // });
   }
 
   @override
@@ -68,7 +85,9 @@ class MealItem extends StatelessWidget {
       ),
       elevation: 6,
       child: InkWell(
-        onTap: () => navToDisplayMeal(context),
+        onTap: () => navToDisplayMeal(
+          context,
+        ),
         child: Column(
           children: [
             Stack(

@@ -34,6 +34,7 @@ class CategoryItem extends StatelessWidget {
         "title": title,
       },
     );
+   
   }
 
   @override
